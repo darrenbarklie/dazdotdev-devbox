@@ -34,10 +34,10 @@ ENV LANGUAGE=en_GB:en
 ENV LC_ALL=en_GB.UTF-8
 
 # Neovim (latest stable - Debian's is ancient)
-RUN curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz \
-    && tar -C /opt -xzf nvim-linux64.tar.gz \
-    && ln -s /opt/nvim-linux64/bin/nvim /usr/local/bin/nvim \
-    && rm nvim-linux64.tar.gz
+RUN curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-arm64.tar.gz \
+    && tar -C /opt -xzf nvim-linux-arm64.tar.gz \
+    && ln -s /opt/nvim-linux-arm64/bin/nvim /usr/local/bin/nvim \
+    && rm nvim-linux-arm64.tar.gz
 
 # Starship prompt
 RUN curl -sS https://starship.rs/install.sh | sh -s -- -y
@@ -65,6 +65,12 @@ RUN chmod 600 /home/dev/.ssh/authorized_keys
 
 USER dev
 WORKDIR /home/dev
+
+# Zig
+RUN curl -LO https://ziglang.org/download/0.13.0/zig-linux-aarch64-0.13.0.tar.xz \
+    && tar -C /opt -xf zig-linux-aarch64-0.13.0.tar.xz \
+    && ln -s /opt/zig-linux-aarch64-0.13.0/zig /usr/local/bin/zig \
+    && rm zig-linux-aarch64-0.13.0.tar.xz
 
 # fnm (Fast Node Manager)
 RUN curl -fsSL https://fnm.vercel.app/install | bash -s -- --install-dir "$HOME/.fnm" --skip-shell
