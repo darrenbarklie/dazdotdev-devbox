@@ -1,3 +1,4 @@
 # Add your SSH public keys here, one per line
 # Example: ssh-ed25519 AAAAC3Nza... user@device
 
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJzRGNB0uIQCBMuBk0LOf3Ll+7Fi5pIaiWCFeyyJD5Ap dazdotdev-devbox
