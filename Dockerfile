@@ -63,14 +63,14 @@ COPY --chown=dev:dev config/starship.toml /home/dev/.config/starship.toml
 COPY --chown=dev:dev config/authorized_keys /home/dev/.ssh/authorized_keys
 RUN chmod 600 /home/dev/.ssh/authorized_keys
 
-USER dev
-WORKDIR /home/dev
-
 # Zig
 RUN curl -LO https://ziglang.org/download/0.13.0/zig-linux-aarch64-0.13.0.tar.xz \
     && tar -C /opt -xf zig-linux-aarch64-0.13.0.tar.xz \
     && ln -s /opt/zig-linux-aarch64-0.13.0/zig /usr/local/bin/zig \
     && rm zig-linux-aarch64-0.13.0.tar.xz
+
+USER dev
+WORKDIR /home/dev
 
 # fnm (Fast Node Manager)
 RUN curl -fsSL https://fnm.vercel.app/install | bash -s -- --install-dir "$HOME/.fnm" --skip-shell
