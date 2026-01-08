@@ -87,7 +87,7 @@ ENV PATH="/home/dev/.local/share/pnpm:$PATH"
 
 # Claude Code (native binary)
 RUN curl -fsSL https://claude.ai/install.sh | bash
-ENV PATH="/home/dev/.claude/local/bin:$PATH"
+ENV PATH="/home/dev/.local/bin:$PATH"
 
 # Tmux Plugin Manager
 RUN git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
@@ -96,18 +96,8 @@ RUN git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 RUN git clone https://github.com/LazyVim/starter ~/.config/nvim \
     && rm -rf ~/.config/nvim/.git
 
-# Create Code directory
-RUN mkdir -p ~/Code
-
 # Shell config
-RUN echo 'eval "$(/home/dev/.fnm/fnm env --use-on-cd --shell zsh)"' >> ~/.zshrc \
-    && echo 'export PATH="$HOME/.bun/bin:$HOME/.local/share/pnpm:$HOME/.claude/local/bin:$PATH"' >> ~/.zshrc \
-    && echo 'eval "$(starship init zsh)"' >> ~/.zshrc \
-    && echo '# Git identity from env vars' >> ~/.zshrc \
-    && echo 'export GIT_AUTHOR_NAME="${GIT_AUTHOR_NAME:-dev}"' >> ~/.zshrc \
-    && echo 'export GIT_COMMITTER_NAME="${GIT_COMMITTER_NAME:-dev}"' >> ~/.zshrc \
-    && echo 'export GIT_AUTHOR_EMAIL="${GIT_AUTHOR_EMAIL:-dev@local}"' >> ~/.zshrc \
-    && echo 'export GIT_COMMITTER_EMAIL="${GIT_COMMITTER_EMAIL:-dev@local}"' >> ~/.zshrc
+COPY --chown=dev:dev config/.zshrc /home/dev/.zshrc
 
 USER root
 
